@@ -1,0 +1,5 @@
+*.out
+*.sw*
+*.*.sw*
+*.test.*
+dumbmain.c
