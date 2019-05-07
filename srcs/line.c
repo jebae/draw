@@ -1,6 +1,7 @@
 #include "draw.h"
 
-static void		plot_line_low(t_coord *p1, t_coord *p2, int (*mark_pixel)(t_coord *))
+static void		plot_line_low(t_coord *p1, t_coord *p2,\
+	int (*mark_pixel)(t_coord *))
 {
 	int			dx;
 	int			dy;
@@ -28,7 +29,8 @@ static void		plot_line_low(t_coord *p1, t_coord *p2, int (*mark_pixel)(t_coord *
 	}
 }
 
-static void		plot_line_high(t_coord *p1, t_coord *p2, int (*mark_pixel)(t_coord *))
+static void		plot_line_high(t_coord *p1, t_coord *p2,\
+	int (*mark_pixel)(t_coord *))
 {
 	int			dx;
 	int			dy;
@@ -56,7 +58,8 @@ static void		plot_line_high(t_coord *p1, t_coord *p2, int (*mark_pixel)(t_coord 
 	}
 }
 
-void			plot_line(t_coord *p1, t_coord *p2, int (*mark_pixel)(t_coord *))
+void			plot_line(t_coord *p1, t_coord *p2,\
+	int (*mark_pixel)(t_coord *))
 {
 	if (ABS(p2->x - p1->x) > ABS(p2->y - p1->y))
 	{
