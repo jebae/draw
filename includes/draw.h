@@ -1,5 +1,8 @@
 #ifndef DRAW_H
 # define DRAW_H
+# include "libft.h"
+# include <math.h>
+# include <stdio.h>
 # define ABS(N) ((N < 0) ? (-N) : (N))
 
 typedef struct			s_coord
@@ -22,7 +25,23 @@ typedef struct			s_edge
 	float				slope;
 }						t_edge;
 
-void			plot_line(t_coord *p1, t_coord *p2,\
+typedef struct			s_edge_list
+{
+	struct s_edge		*content;
+	size_t				content_size;
+	struct s_edge_list	*next;
+}						t_edge_list;
+
+void					plot_line(t_coord *p1, t_coord *p2,\
 	int (*mark_pixel)(t_coord *));
+
+void					polygon_scanline_fill(t_polygon *polygon,\
+		int (*mark_pixel)(t_coord *));
+
+int						g_edge_compare(t_list *a, t_list *b);
+
+int						a_edge_compare(t_list *a, t_list *b);
+
+void					lst_del(void *content, size_t content_size);
 
 #endif
