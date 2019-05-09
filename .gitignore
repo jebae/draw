@@ -4,3 +4,4 @@
 *.test.*
 dumbmain.c
 *.sh
+*.o

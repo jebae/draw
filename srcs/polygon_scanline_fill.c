@@ -25,7 +25,7 @@ static void		init_g_edges(t_edge_list **alst, t_polygon *polygon)
 	i = 0;
 	while (i < polygon->v_count)
 	{
-		j = (i + 1 == polygon->v_count) ? 0 : i + 1;
+		j = (i + 1) % polygon->v_count;
 		low = (polygon->vertices[i].y > polygon->vertices[j].y) ?
 			&(polygon->vertices[j]) : &(polygon->vertices[i]);
 		high = (&(polygon->vertices[j]) == low) ?
@@ -80,8 +80,8 @@ static void		add_new_a_edges(t_edge_list **a_edges,\
 	ft_lstsort((t_list **)a_edges, &a_edge_compare);
 }
 
-static void		fill_line(t_edge_list *a_edges,\
-		int scanline, int (*mark_pixel)(t_coord *))
+static void		fill_line(t_mlx *mlx, t_edge_list *a_edges,\
+		int scanline, int (*mark_pixel)(t_mlx *, t_coord *, int))
 {
 	char			flag;
 	t_coord			coord;
@@ -96,10 +96,10 @@ static void		fill_line(t_edge_list *a_edges,\
 	{
 		if (flag)
 		{
-			coord.x = (int)ceil((double)(cur->content->x));
-			mark_pixel(&coord);
+			coord.x = ceil(cur->content->x);
+			mark_pixel(mlx, &coord, 0xff0000);
 			while (++coord.x < next->content->x)
-				mark_pixel(&coord);
+				mark_pixel(mlx, &coord, 0xff0000);
 		}
 		cur = cur->next;
 		next = cur->next;
@@ -107,8 +107,8 @@ static void		fill_line(t_edge_list *a_edges,\
 	}
 }
 
-void			polygon_scanline_fill(t_polygon *polygon,\
-		int (*mark_pixel)(t_coord *))
+void			polygon_scanline_fill(t_mlx *mlx, t_polygon *polygon,\
+	int (*mark_pixel)(t_mlx *, t_coord *, int))
 {
 	int				scanline;
 	t_edge_list		*g_edges;
@@ -128,9 +128,8 @@ void			polygon_scanline_fill(t_polygon *polygon,\
 		printf("\033[0;32mscanline : %d\n\033[0m", scanline);
 		printf("\033[0;32medge\n\033[0m");
 		ft_lstiter((t_list *)a_edges, &iter);
-		fill_line(a_edges, scanline, mark_pixel);
+		fill_line(mlx, a_edges, scanline, mark_pixel);
 		scanline++;
 		printf("\n");
 	}
-	//ft_lstdel(&(t_list *)(g_edges), &lst_del);
 }

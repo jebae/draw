@@ -1,7 +1,7 @@
 #include "draw.h"
 
-static void		plot_line_low(t_coord *p1, t_coord *p2,\
-	int (*mark_pixel)(t_coord *))
+static void		plot_line_low(t_mlx *mlx, t_coord *p1, t_coord *p2,\
+	int (*mark_pixel)(t_mlx *, t_coord *, int))
 {
 	int			dx;
 	int			dy;
@@ -18,7 +18,7 @@ static void		plot_line_low(t_coord *p1, t_coord *p2,\
 	D = 2 * dy - dx;
 	while (p.x <= p2->x)
 	{
-		mark_pixel(&p);
+		mark_pixel(mlx, &p, 0xFFFFFF);
 		if (D > 0)
 		{
 			p.y += yi;
@@ -29,8 +29,8 @@ static void		plot_line_low(t_coord *p1, t_coord *p2,\
 	}
 }
 
-static void		plot_line_high(t_coord *p1, t_coord *p2,\
-	int (*mark_pixel)(t_coord *))
+static void		plot_line_high(t_mlx *mlx, t_coord *p1, t_coord *p2,\
+	int (*mark_pixel)(t_mlx *, t_coord *, int))
 {
 	int			dx;
 	int			dy;
@@ -47,7 +47,7 @@ static void		plot_line_high(t_coord *p1, t_coord *p2,\
 	D = 2 * dx - dy;
 	while (p.y <= p2->y)
 	{
-		mark_pixel(&p);
+		mark_pixel(mlx, &p, 0xFFFFFF);
 		if (D > 0)
 		{
 			p.x += xi;
@@ -58,21 +58,21 @@ static void		plot_line_high(t_coord *p1, t_coord *p2,\
 	}
 }
 
-void			plot_line(t_coord *p1, t_coord *p2,\
-	int (*mark_pixel)(t_coord *))
+void			plot_line(t_mlx *mlx, t_coord *p1, t_coord *p2,\
+	int (*mark_pixel)(t_mlx *, t_coord *, int))
 {
 	if (ABS(p2->x - p1->x) > ABS(p2->y - p1->y))
 	{
 		if (p2->x > p1->x)
-			plot_line_low(p1, p2, mark_pixel);
+			plot_line_low(mlx, p1, p2, mark_pixel);
 		else
-			plot_line_low(p2, p1, mark_pixel);
+			plot_line_low(mlx, p2, p1, mark_pixel);
 	}
 	else
 	{
 		if (p2->y > p1->y)
-			plot_line_high(p1, p2, mark_pixel);
+			plot_line_high(mlx, p1, p2, mark_pixel);
 		else
-			plot_line_high(p2, p1, mark_pixel);
+			plot_line_high(mlx, p2, p1, mark_pixel);
 	}
 }
