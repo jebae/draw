@@ -1,8 +1,9 @@
 #ifndef DRAW_H
 # define DRAW_H
-# include "libft.h"
 # include <math.h>
-# include <stdio.h>
+# include <stdio.h> // remove after
+# include "libft.h"
+# include "gmath.h"
 # define ABS(N) ((N < 0) ? -(N) : (N))
 
 typedef struct			s_mlx
@@ -19,8 +20,8 @@ typedef struct			s_coord
 
 typedef struct			s_polygon
 {
-	unsigned int		v_count;
-	struct s_coord		*vertices;
+	size_t				v_count;
+	struct s_vec4		*vertices;
 }						t_polygon;
 
 typedef struct			s_edge
@@ -49,5 +50,9 @@ int						g_edge_compare(t_list *a, t_list *b);
 int						a_edge_compare(t_list *a, t_list *b);
 
 void					lst_del(void *content, size_t content_size);
+
+t_coord					*multi_project(t_vec4 *vecs, size_t v_count);
+
+t_coord					project(t_vec4 *vecs);
 
 #endif

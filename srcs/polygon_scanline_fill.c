@@ -1,8 +1,7 @@
 #include "draw.h"
 
 void			iter(t_list *elem)
-{
-	t_edge	*edge;
+{ t_edge	*edge;
 
 	edge = (t_edge *)(elem->content);
 	printf("%u %u %lf %lf\n\n",
@@ -12,7 +11,8 @@ void			iter(t_list *elem)
 		edge->slope);
 }
 
-static void		init_g_edges(t_edge_list **alst, t_polygon *polygon)
+static void		init_g_edges(t_edge_list **alst,\
+		t_coord *coords, size_t v_count)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -20,16 +20,16 @@ static void		init_g_edges(t_edge_list **alst, t_polygon *polygon)
 	t_coord			*low;
 	t_coord			*high;
 
-	if (alst == NULL || polygon->v_count < 3)
+	if (alst == NULL || v_count < 3)
 		return ;
 	i = 0;
-	while (i < polygon->v_count)
+	while (i < v_count)
 	{
-		j = (i + 1) % polygon->v_count;
-		low = (polygon->vertices[i].y > polygon->vertices[j].y) ?
-			&(polygon->vertices[j]) : &(polygon->vertices[i]);
-		high = (&(polygon->vertices[j]) == low) ?
-			&(polygon->vertices[i]) : &(polygon->vertices[j]);
+		j = (i + 1) % v_count;
+		low = (coords[i].y > coords[j].y) ?
+			&(coords[j]) : &(coords[i]);
+		high = (&(coords[j]) == low) ?
+			&(coords[i]) : &(coords[j]);
 		edge.slope = (float)(high->x - low->x) / (high->y - low->y);
 		if (i++ && isinf(edge.slope))
 			continue ;
@@ -113,10 +113,13 @@ void			polygon_scanline_fill(t_mlx *mlx, t_polygon *polygon,\
 	int				scanline;
 	t_edge_list		*g_edges;
 	t_edge_list		*a_edges;
+	t_coord			*proj;
 
 	g_edges = NULL;
 	a_edges = NULL;
-	init_g_edges(&g_edges, polygon);
+	proj = multi_project(polygon->vertices, polygon->v_count);
+	init_g_edges(&g_edges, proj, polygon->v_count);
+	free(proj);
 	ft_lstiter((t_list *)g_edges, &iter);
 	scanline = g_edges->content->y_min;
 	while (1)
