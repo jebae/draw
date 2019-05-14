@@ -13,7 +13,7 @@ INCLUDES = -I ./includes\
 OBJS = line.o\
 	polygon_scanline_fill.o\
 	polygon_scanline_fill_utils.o\
-	project.o\
+	perspective_proj.o\
 
 LIBS = ../libft/libft.a ../gmath/gmath.a
 

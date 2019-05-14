@@ -1,6 +1,6 @@
 #include "draw.h"
 
-t_coord		*multi_project(t_vec4 *vecs, size_t v_count)
+t_coord		*mul_perspective_proj(t_vec4 *vecs, size_t v_count)
 {
 	size_t		i;
 	t_coord		*coords;
@@ -9,13 +9,13 @@ t_coord		*multi_project(t_vec4 *vecs, size_t v_count)
 	i = 0;
 	while (i < v_count)
 	{
-		coords[i] = project(&(vecs[i]));
+		coords[i] = perspective_proj(&(vecs[i]));
 		i++;
 	}
 	return (coords);
 }
 
-t_coord		project(t_vec4 *vecs)
+t_coord		perspective_proj(t_vec4 *vecs)
 {
 	t_coord		coord;
 

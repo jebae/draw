@@ -51,8 +51,8 @@ int						a_edge_compare(t_list *a, t_list *b);
 
 void					lst_del(void *content, size_t content_size);
 
-t_coord					*multi_project(t_vec4 *vecs, size_t v_count);
+t_coord					*mul_perspective_proj(t_vec4 *vecs, size_t v_count);
 
-t_coord					project(t_vec4 *vecs);
+t_coord					perspective_proj(t_vec4 *vecs);
 
 #endif

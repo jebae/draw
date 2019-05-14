@@ -117,7 +117,7 @@ void			polygon_scanline_fill(t_mlx *mlx, t_polygon *polygon,\
 
 	g_edges = NULL;
 	a_edges = NULL;
-	proj = multi_project(polygon->vertices, polygon->v_count);
+	proj = mul_perspective_proj(polygon->vertices, polygon->v_count);
 	init_g_edges(&g_edges, proj, polygon->v_count);
 	free(proj);
 	ft_lstiter((t_list *)g_edges, &iter);
