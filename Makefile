@@ -10,10 +10,12 @@ INCLUDES = -I ./includes\
 	-I ../libft/includes\
 	-I ../gmath/includes\
 
-OBJS = line.o\
+OBJS = plot_line.o\
 	polygon_scanline_fill.o\
 	polygon_scanline_fill_utils.o\
+	plot_polygon_line.o\
 	perspective_proj.o\
+	display.o\
 
 LIBS = ../libft/libft.a ../gmath/gmath.a
 

@@ -128,11 +128,8 @@ void			polygon_scanline_fill(t_mlx *mlx, t_polygon *polygon,\
 		add_new_a_edges(&a_edges, &g_edges, scanline);
 		if (a_edges == NULL)
 			return ;
-		printf("\033[0;32mscanline : %d\n\033[0m", scanline);
-		printf("\033[0;32medge\n\033[0m");
 		ft_lstiter((t_list *)a_edges, &iter);
 		fill_line(mlx, a_edges, scanline, mark_pixel);
 		scanline++;
-		printf("\n");
 	}
 }
