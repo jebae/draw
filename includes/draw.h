@@ -7,7 +7,6 @@
 # define WIDTH 1000
 # define HEIGHT 800
 # define PADDING 30
-# define ABS(N) ((N < 0) ? -(N) : (N))
 
 typedef struct			s_mlx
 {
@@ -18,7 +17,7 @@ typedef struct			s_mlx
 typedef struct  		s_marker
 {
     t_mlx       		mlx;
-	t_coord				(*projection)(t_vec4 *vertex);
+	t_vec4				(*projection)(t_vec4 *vertex);
     int         		(*mark_pixel)(t_mlx *, t_coord *, int);
 }               		t_marker;
 
