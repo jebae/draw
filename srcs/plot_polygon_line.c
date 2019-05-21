@@ -2,21 +2,22 @@
 
 void	plot_polygon_line(t_polygon *polygon, t_marker *marker)
 {
-	size_t		i;
-	size_t		j;
-	t_vec4		proj;
-	t_coord		p1;
-	t_coord		p2;
+	size_t					i;
+	size_t					j;
+	t_vec4					proj;
+	t_coord					points[2];
+	t_polygon_coefficient	co;
 
+	co = polygon_coefficient(polygon);
 	i = 0;
 	while (i < polygon->v_count)
 	{
 		j = (i + 1) % polygon->v_count;
 		proj = marker->projection(&(polygon->vertices[i]));
-		p1 = (t_coord){(int)(proj.arr[0]), (int)(proj.arr[1])};
+		points[0] = (t_coord){(int)(proj.arr[0]), (int)(proj.arr[1])};
 		proj = marker->projection(&(polygon->vertices[j]));
-		p2 = (t_coord){(int)(proj.arr[0]), (int)(proj.arr[1])};
-		plot_line(&p1, &p2, marker);
+		points[1] = (t_coord){(int)(proj.arr[0]), (int)(proj.arr[1])};
+		plot_line(&(points[0]), &(points[1]), &co, marker);
 		i++;
 	}
 }

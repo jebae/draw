@@ -9,15 +9,20 @@ SRCS = srcs/*.c
 INCLUDES = -I ./includes\
 	-I ../libft/includes\
 	-I ../gmath/includes\
+	-I ../mlx\
 
 OBJS = plot_line.o\
+	plot_polygon_line.o\
 	polygon_scanline_fill.o\
 	polygon_scanline_fill_utils.o\
-	plot_polygon_line.o\
-	perspective_proj.o\
 	display.o\
+	projection_vertices.o\
+	marker.o\
+	z_buffer.o\
 
-LIBS = ../libft/libft.a ../gmath/gmath.a
+LIBS = ../libft/libft.a\
+	   ../gmath/libgmath.a\
+	   ../mlx/libmlx.a\
 
 all : $(NAME)
 
@@ -31,6 +36,7 @@ $(OBJS) :
 $(LIBS) :
 	$(MAKE) -C ../libft all
 	$(MAKE) -C ../gmath all
+	$(MAKE) -C ../mlx all
 
 clean :
 	$(MAKE) -C ../libft clean

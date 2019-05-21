@@ -12,6 +12,7 @@ static void		display_polygon(t_polygon polygon, t_mat4 *camera_mat,\
 		i++;
 	}
 	plot_polygon_line(&polygon, marker);
+	polygon_scanline_fill(&polygon, marker);
 }
 
 void			display(t_polygon *polygons, int polygon_size, t_mat4 *camera_mat,\

@@ -1,24 +1,12 @@
 #include "draw.h"
 
-void			iter(t_list *elem)
-{ t_edge	*edge;
-
-	edge = (t_edge *)(elem->content);
-	printf("%u %u %lf %lf\n\n",
-		edge->y_min,
-		edge->y_max,
-		edge->x,
-		edge->slope);
-}
-
-static void		init_g_edges(t_edge_list **alst,\
-		t_coord *coords, size_t v_count)
+static void		init_g_edges(t_edge_list **alst, t_vec4 *vertices, size_t v_count)
 {
 	unsigned int	i;
 	unsigned int	j;
 	t_edge			edge;
-	t_coord			*low;
-	t_coord			*high;
+	t_vec4			*low;
+	t_vec4			*high;
 
 	if (alst == NULL || v_count < 3)
 		return ;
@@ -26,16 +14,16 @@ static void		init_g_edges(t_edge_list **alst,\
 	while (i < v_count)
 	{
 		j = (i + 1) % v_count;
-		low = (coords[i].y > coords[j].y) ?
-			&(coords[j]) : &(coords[i]);
-		high = (&(coords[j]) == low) ?
-			&(coords[i]) : &(coords[j]);
-		edge.slope = (float)(high->x - low->x) / (high->y - low->y);
+		low = (vertices[i].arr[1] > vertices[j].arr[1]) ?
+			&(vertices[j]) : &(vertices[i]);
+		high = (&(vertices[j]) == low) ?
+			&(vertices[i]) : &(vertices[j]);
+		edge.slope = (high->arr[0] - low->arr[0]) / (high->arr[1] - low->arr[1]);
 		if (i++ && isinf(edge.slope))
 			continue ;
-		edge.y_min = low->y;
-		edge.y_max = high->y;
-		edge.x = low->x;
+		edge.y_min = low->arr[1];
+		edge.y_max = high->arr[1];
+		edge.x = low->arr[0];
 		ft_sorted_lstadd((t_list **)alst,\
 				ft_lstnew(&edge, sizeof(edge)), &g_edge_compare);
 	}
@@ -80,8 +68,8 @@ static void		add_new_a_edges(t_edge_list **a_edges,\
 	ft_lstsort((t_list **)a_edges, &a_edge_compare);
 }
 
-static void		fill_line(t_mlx *mlx, t_edge_list *a_edges,\
-		int scanline, int (*mark_pixel)(t_mlx *, t_coord *, int))
+static void		fill_line(t_edge_list *a_edges, int scanline,\
+		t_polygon_coefficient *co, t_marker *marker)
 {
 	char			flag;
 	t_coord			coord;
@@ -97,9 +85,9 @@ static void		fill_line(t_mlx *mlx, t_edge_list *a_edges,\
 		if (flag)
 		{
 			coord.x = ceil(cur->content->x);
-			mark_pixel(mlx, &coord, 0xff0000);
+			marker->mark_pixel(marker, &coord, 0x000000, co);
 			while (++coord.x < next->content->x)
-				mark_pixel(mlx, &coord, 0xff0000);
+				marker->mark_pixel(marker, &coord, 0x000000, co);
 		}
 		cur = cur->next;
 		next = cur->next;
@@ -107,20 +95,21 @@ static void		fill_line(t_mlx *mlx, t_edge_list *a_edges,\
 	}
 }
 
-void			polygon_scanline_fill(t_mlx *mlx, t_polygon *polygon,\
-	int (*mark_pixel)(t_mlx *, t_coord *, int))
+void			polygon_scanline_fill(t_polygon *polygon, t_marker *marker)
 {
-	int				scanline;
-	t_edge_list		*g_edges;
-	t_edge_list		*a_edges;
-	t_coord			*proj;
+	int						scanline;
+	t_vec4					*projections;
+	t_edge_list				*g_edges;
+	t_edge_list				*a_edges;
+	t_polygon_coefficient	co;
 
 	g_edges = NULL;
 	a_edges = NULL;
-	proj = mul_perspective_proj(polygon->vertices, polygon->v_count);
-	init_g_edges(&g_edges, proj, polygon->v_count);
-	free(proj);
-	ft_lstiter((t_list *)g_edges, &iter);
+	co = polygon_coefficient(polygon);
+	projections = projection_vertices(polygon->vertices,\
+			polygon->v_count, marker->projection);
+	init_g_edges(&g_edges, projections, polygon->v_count);
+	ft_memdel((void **)&projections);
 	scanline = g_edges->content->y_min;
 	while (1)
 	{
@@ -128,8 +117,7 @@ void			polygon_scanline_fill(t_mlx *mlx, t_polygon *polygon,\
 		add_new_a_edges(&a_edges, &g_edges, scanline);
 		if (a_edges == NULL)
 			return ;
-		ft_lstiter((t_list *)a_edges, &iter);
-		fill_line(mlx, a_edges, scanline, mark_pixel);
+		fill_line(a_edges, scanline, &co, marker);
 		scanline++;
 	}
 }

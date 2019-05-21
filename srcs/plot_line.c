@@ -1,6 +1,7 @@
 #include "draw.h"
 
-static void		plot_line_low(t_coord *p1, t_coord *p2, t_marker *marker)
+static void		plot_line_low(t_coord *p1, t_coord *p2,\
+		t_polygon_coefficient *co, t_marker *marker)
 {
 	int			dx;
 	int			dy;
@@ -17,7 +18,7 @@ static void		plot_line_low(t_coord *p1, t_coord *p2, t_marker *marker)
 	D = 2 * dy - dx;
 	while (p.x <= p2->x)
 	{
-		marker->mark_pixel(&(marker->mlx), &p, 0xFFFFFF);
+		marker->mark_pixel(marker, &p, 0xFFFFFF, co);
 		if (D > 0)
 		{
 			p.y += yi;
@@ -28,7 +29,8 @@ static void		plot_line_low(t_coord *p1, t_coord *p2, t_marker *marker)
 	}
 }
 
-static void		plot_line_high(t_coord *p1, t_coord *p2, t_marker *marker)
+static void		plot_line_high(t_coord *p1, t_coord *p2,\
+		t_polygon_coefficient *co, t_marker *marker)
 {
 	int			dx;
 	int			dy;
@@ -45,7 +47,7 @@ static void		plot_line_high(t_coord *p1, t_coord *p2, t_marker *marker)
 	D = 2 * dx - dy;
 	while (p.y <= p2->y)
 	{
-		marker->mark_pixel(&(marker->mlx), &p, 0xFFFFFF);
+		marker->mark_pixel(marker, &p, 0xFFFFFF, co);
 		if (D > 0)
 		{
 			p.x += xi;
@@ -56,20 +58,21 @@ static void		plot_line_high(t_coord *p1, t_coord *p2, t_marker *marker)
 	}
 }
 
-void			plot_line(t_coord *p1, t_coord *p2, t_marker *marker)
+void			plot_line(t_coord *p1, t_coord *p2,\
+		t_polygon_coefficient *co, t_marker *marker)
 {
 	if (ABS(p2->x - p1->x) > ABS(p2->y - p1->y))
 	{
 		if (p2->x > p1->x)
-			plot_line_low(p1, p2, marker);
+			plot_line_low(p1, p2, co, marker);
 		else
-			plot_line_low(p2, p1, marker);
+			plot_line_low(p2, p1, co, marker);
 	}
 	else
 	{
 		if (p2->y > p1->y)
-			plot_line_high(p1, p2, marker);
+			plot_line_high(p1, p2, co, marker);
 		else
-			plot_line_high(p2, p1, marker);
+			plot_line_high(p2, p1, co, marker);
 	}
 }
