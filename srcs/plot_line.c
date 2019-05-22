@@ -18,7 +18,7 @@ static void		plot_line_low(t_coord *p1, t_coord *p2,\
 	D = 2 * dy - dx;
 	while (p.x <= p2->x)
 	{
-		marker->mark_pixel(marker, &p, 0xFFFFFF, co);
+		marker->mark_pixel(marker, &p, co);
 		if (D > 0)
 		{
 			p.y += yi;
@@ -47,7 +47,7 @@ static void		plot_line_high(t_coord *p1, t_coord *p2,\
 	D = 2 * dx - dy;
 	while (p.y <= p2->y)
 	{
-		marker->mark_pixel(marker, &p, 0xFFFFFF, co);
+		marker->mark_pixel(marker, &p, co);
 		if (D > 0)
 		{
 			p.x += xi;

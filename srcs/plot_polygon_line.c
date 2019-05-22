@@ -8,6 +8,7 @@ void	plot_polygon_line(t_polygon *polygon, t_marker *marker)
 	t_coord					points[2];
 	t_polygon_coefficient	co;
 
+	marker->color = polygon->line_color;
 	co = polygon_coefficient(polygon);
 	i = 0;
 	while (i < polygon->v_count)
