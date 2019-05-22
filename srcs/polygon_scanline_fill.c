@@ -2,30 +2,29 @@
 
 static void		init_g_edges(t_edge_list **alst, t_vec4 *vertices, size_t v_count)
 {
-	unsigned int	i;
-	unsigned int	j;
+	size_t			i;
+	size_t			j;
 	t_edge			edge;
 	t_vec4			*low;
 	t_vec4			*high;
 
-	if (alst == NULL || v_count < 3)
-		return ;
 	i = 0;
 	while (i < v_count)
 	{
 		j = (i + 1) % v_count;
-		low = (vertices[i].arr[1] > vertices[j].arr[1]) ?
-			&(vertices[j]) : &(vertices[i]);
-		high = (&(vertices[j]) == low) ?
-			&(vertices[i]) : &(vertices[j]);
-		edge.slope = (high->arr[0] - low->arr[0]) / (high->arr[1] - low->arr[1]);
-		if (i++ && isinf(edge.slope))
-			continue ;
-		edge.y_min = low->arr[1];
-		edge.y_max = high->arr[1];
-		edge.x = low->arr[0];
-		ft_sorted_lstadd((t_list **)alst,\
-				ft_lstnew(&edge, sizeof(edge)), &g_edge_compare);
+		if ((int)(vertices[i].arr[1]) != (int)(vertices[j].arr[1]))
+		{
+			low = (vertices[i].arr[1] > vertices[j].arr[1]) ?
+				&(vertices[j]) : &(vertices[i]);
+			high = (&(vertices[j]) == low) ? &(vertices[i]) : &(vertices[j]);
+			edge.y_min = low->arr[1];
+			edge.y_max = high->arr[1];
+			edge.x = low->arr[0];
+			edge.slope = (high->arr[0] - low->arr[0]) / (high->arr[1] - low->arr[1]);
+			ft_sorted_lstadd((t_list **)alst,\
+					ft_lstnew(&edge, sizeof(edge)), &g_edge_compare);
+		}
+		i++;
 	}
 }
 
@@ -110,7 +109,7 @@ void			polygon_scanline_fill(t_polygon *polygon, t_marker *marker)
 			polygon->v_count, marker->projection);
 	init_g_edges(&g_edges, projections, polygon->v_count);
 	ft_memdel((void **)&projections);
-	scanline = g_edges->content->y_min;
+	scanline = (g_edges == NULL) ? 0 : g_edges->content->y_min;
 	while (1)
 	{
 		update_a_edges(&a_edges, scanline);
