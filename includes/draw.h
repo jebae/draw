@@ -54,8 +54,8 @@ t_vec4					*projection_vertices(t_vec4 *vertices, size_t v_count,\
 /*
  * marker
 */
-void					parallel_proj_marker(t_marker *marker, void *p_mlx, void *p_win);
-void					perspective_proj_marker(t_marker *marker, void *p_mlx, void *p_win);
+void					parallel_proj_marker(t_marker *marker);
+void					perspective_proj_marker(t_marker *marker);
 
 /*
  * utils
@@ -65,7 +65,7 @@ void					lst_del(void *content, size_t content_size);
 /*
  * display
 */
-void					display(t_polygon *polygons, int polygon_size, t_mat4 *camera_mat,\
+void					render(t_polygon *polygons, size_t polygon_count, t_camera *cam,\
 		t_marker *marker);
 
 /*

@@ -15,7 +15,7 @@ OBJS = plot_line.o\
 	plot_polygon_line.o\
 	polygon_scanline_fill.o\
 	polygon_scanline_fill_utils.o\
-	display.o\
+	render.o\
 	projection_vertices.o\
 	marker.o\
 	z_buffer.o\
@@ -30,8 +30,8 @@ $(NAME) : $(LIBS) $(OBJS)
 	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 
-$(OBJS) :
-	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCS)
+$(OBJS) : $(SRCS)
+	$(CC) -D DEBUG $(CFLAGS) $(INCLUDES) -c $(SRCS)
 
 $(LIBS) :
 	$(MAKE) -C ../libft all
@@ -41,6 +41,7 @@ $(LIBS) :
 clean :
 	$(MAKE) -C ../libft clean
 	$(MAKE) -C ../gmath clean
+	$(MAKE) -C ../mlx clean
 	rm -rf $(OBJS)
 
 fclean : clean
