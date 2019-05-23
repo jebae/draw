@@ -1,6 +1,6 @@
 #include "draw.h"
 
-int			z_buffer_mark_pixel(t_marker *marker, t_coord *origin, int color,\
+int			z_buffer_mark_pixel(t_marker *marker, t_coord *origin,\
 		t_polygon_coefficient *co)
 {
 	static int		x_to_move = WIDTH / 2;
@@ -16,7 +16,7 @@ int			z_buffer_mark_pixel(t_marker *marker, t_coord *origin, int color,\
 	z = marker->calculate_z(origin->x, origin->y, co);
 	if (marker->z_buf[p.y][p.x] > z)
 	{
-		mlx_pixel_put(marker->p_mlx, marker->p_win, p.x, p.y, color);
+		mlx_pixel_put(marker->p_mlx, marker->p_win, p.x, p.y, marker->color);
 		marker->z_buf[p.y][p.x] = z;
 	}
 	return (0);

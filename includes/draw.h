@@ -11,11 +11,12 @@
 
 typedef struct  		s_marker
 {
+	int					color;
 	void				*p_mlx;
 	void				*p_win;
 	t_vec4				(*projection)(t_vec4 *vertex);
 	float				(*calculate_z)(int , int , t_polygon_coefficient *);
-    int         		(*mark_pixel)(struct s_marker *, t_coord *, int,\
+    int         		(*mark_pixel)(struct s_marker *, t_coord *,\
 			t_polygon_coefficient *);
 	float				z_buf[HEIGHT][WIDTH];
 }               		t_marker;
@@ -71,7 +72,7 @@ void					render(t_polygon *polygons, size_t polygon_count, t_camera *cam,\
 /*
  * z buffer
 */
-int						z_buffer_mark_pixel(t_marker *marker, t_coord *coord, int color,\
+int						z_buffer_mark_pixel(t_marker *marker, t_coord *origin,\
 		t_polygon_coefficient *co);
 void					init_z_buffer(float *z_buf);
 

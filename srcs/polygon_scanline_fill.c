@@ -84,9 +84,9 @@ static void		fill_line(t_edge_list *a_edges, int scanline,\
 		if (flag)
 		{
 			coord.x = ceil(cur->content->x);
-			marker->mark_pixel(marker, &coord, 0x000000, co);
+			marker->mark_pixel(marker, &coord, co);
 			while (++coord.x < next->content->x)
-				marker->mark_pixel(marker, &coord, 0x000000, co);
+				marker->mark_pixel(marker, &coord, co);
 		}
 		cur = cur->next;
 		next = cur->next;
@@ -102,6 +102,7 @@ void			polygon_scanline_fill(t_polygon *polygon, t_marker *marker)
 	t_edge_list				*a_edges;
 	t_polygon_coefficient	co;
 
+	marker->color = polygon->fill_color;
 	g_edges = NULL;
 	a_edges = NULL;
 	co = polygon_coefficient(polygon);
