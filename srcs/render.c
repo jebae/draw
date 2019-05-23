@@ -7,21 +7,21 @@ static void		render_polygon(t_polygon *polygon, t_mat4 *mat,\
 	t_polygon	copy;
 
 	i = 0;
-	copy = *polygon;
-	copy.vertices = (t_vec4 *)ft_memalloc(sizeof(t_vec4) * polygon.v_count);
-	while (i < polygon.v_count)
+	copy = new_polygon(polygon->v_count, polygon->line_color, polygon->fill_color);
+	while (i < copy.v_count)
 	{
-		polygon.vertices[i] = mat_mul_vec(mat, &(polygon.vertices[i]));
+		copy.vertices[i] = mat_mul_vec(mat, &(polygon->vertices[i]));
 		i++;
 	}
 	#ifdef DEBUG
 		printf("copy vertice 1 : %.2f %.2f %.2f\n",\
-			polygon.vertices[0].arr[0],
-			polygon.vertices[0].arr[1],
-			polygon.vertices[0].arr[2]);
+			copy.vertices[0].arr[0],
+			copy.vertices[0].arr[1],
+			copy.vertices[0].arr[2]);
 	#endif
-	plot_polygon_line(&polygon, marker);
-	polygon_scanline_fill(&polygon, marker);
+	plot_polygon_line(&copy, marker);
+	polygon_scanline_fill(&copy, marker);
+	ft_memdel((void **)&(copy.vertices));
 }
 
 void			render(t_polygon *polygons, size_t polygon_count, t_camera *cam,\
