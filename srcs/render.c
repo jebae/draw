@@ -24,6 +24,7 @@ void			render(t_polygon *polygons, size_t polygon_count, t_camera *cam,\
 	size_t		i;
 	t_mat4		mat;
 
+	init_z_buffer((float *)(marker->z_buf));
 	mat = camera_mat(cam);
 	i = 0;
 	while (i < polygon_count)
