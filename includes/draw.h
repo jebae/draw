@@ -5,8 +5,8 @@
 # include "libft.h"
 # include "mlx.h"
 # include "gmath.h"
-# define WIDTH 1000
-# define HEIGHT 800
+# define WIDTH 1800
+# define HEIGHT 1000
 # define PADDING 30
 
 typedef struct  		s_marker
