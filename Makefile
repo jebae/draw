@@ -31,7 +31,7 @@ $(NAME) : $(LIBS) $(OBJS)
 	ranlib $(NAME)
 
 $(OBJS) : $(SRCS)
-	$(CC) -D DEBUG $(CFLAGS) $(INCLUDES) -c $(SRCS)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRCS)
 
 $(LIBS) :
 	$(MAKE) -C ../libft all
