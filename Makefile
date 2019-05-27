@@ -9,7 +9,6 @@ SRCS = srcs/*.c
 INCLUDES = -I ./includes\
 	-I ../libft/includes\
 	-I ../gmath/includes\
-	-I ../mlx\
 
 OBJS = plot_line.o\
 	plot_polygon_line.o\
@@ -22,7 +21,6 @@ OBJS = plot_line.o\
 
 LIBS = ../libft/libft.a\
 	   ../gmath/libgmath.a\
-	   ../mlx/libmlx.a\
 
 all : $(NAME)
 
@@ -36,12 +34,10 @@ $(OBJS) : $(SRCS)
 $(LIBS) :
 	$(MAKE) -C ../libft all
 	$(MAKE) -C ../gmath all
-	$(MAKE) -C ../mlx all
 
 clean :
 	$(MAKE) -C ../libft clean
 	$(MAKE) -C ../gmath clean
-	$(MAKE) -C ../mlx clean
 	rm -rf $(OBJS)
 
 fclean : clean
