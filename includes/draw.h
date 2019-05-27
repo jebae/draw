@@ -1,9 +1,8 @@
 #ifndef DRAW_H
 # define DRAW_H
 # include <math.h>
-# include <stdio.h> // remove after
+# include <mlx.h>
 # include "libft.h"
-# include "mlx.h"
 # include "gmath.h"
 # define WIDTH 1800
 # define HEIGHT 1000
