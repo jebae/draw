@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jebae <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/28 15:09:39 by jebae             #+#    #+#             */
+/*   Updated: 2019/05/28 15:09:40 by jebae            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "draw.h"
 
 static void		render_polygon(t_polygon *polygon, t_mat4 *mat,\
@@ -7,7 +19,8 @@ static void		render_polygon(t_polygon *polygon, t_mat4 *mat,\
 	t_polygon	copy;
 
 	i = 0;
-	copy = new_polygon(polygon->v_count, polygon->line_color, polygon->fill_color);
+	copy = new_polygon(polygon->v_count, polygon->line_color,\
+		polygon->fill_color);
 	while (i < copy.v_count)
 	{
 		copy.vertices[i] = mat_mul_vec(mat, &(polygon->vertices[i]));
@@ -18,8 +31,8 @@ static void		render_polygon(t_polygon *polygon, t_mat4 *mat,\
 	ft_memdel((void **)&(copy.vertices));
 }
 
-void			render(t_polygon *polygons, size_t polygon_count, t_camera *cam,\
-		t_marker *marker)
+void			render(t_polygon *polygons, size_t polygon_count,\
+	t_camera *cam, t_marker *marker)
 {
 	size_t		i;
 	t_mat4		mat;

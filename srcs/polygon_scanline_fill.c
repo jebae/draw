@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   polygon_scanline_fill.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jebae <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/28 15:09:29 by jebae             #+#    #+#             */
+/*   Updated: 2019/05/28 15:09:30 by jebae            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "draw.h"
 
-static void		init_g_edges(t_edge_list **alst, t_vec4 *vertices, size_t v_count)
+static void		init_g_edges(t_edge_list **alst,\
+	t_vec4 *vertices, size_t v_count)
 {
 	size_t			i;
 	size_t			j;
@@ -20,7 +33,8 @@ static void		init_g_edges(t_edge_list **alst, t_vec4 *vertices, size_t v_count)
 			edge.y_min = low->arr[1];
 			edge.y_max = high->arr[1];
 			edge.x = low->arr[0];
-			edge.slope = (high->arr[0] - low->arr[0]) / (high->arr[1] - low->arr[1]);
+			edge.slope = (high->arr[0] - low->arr[0]) /\
+				(high->arr[1] - low->arr[1]);
 			ft_sorted_lstadd((t_list **)alst,\
 					ft_lstnew(&edge, sizeof(edge)), &g_edge_compare);
 		}
