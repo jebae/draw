@@ -12,6 +12,15 @@
 
 #include "draw.h"
 
+int			mark_pixel(t_marker *marker, t_coord *coord,\
+	t_polygon_coefficient *co)
+{
+	if (co != NULL)
+		co = NULL;
+	mlx_pixel_put(marker->p_mlx, marker->p_win, coord->x, coord->y, marker->color);
+	return (0);
+}
+
 void		parallel_proj_marker(t_marker *marker)
 {
 	marker->projection = &parallel_projection;

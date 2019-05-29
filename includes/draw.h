@@ -16,8 +16,8 @@
 # include <mlx.h>
 # include "libft.h"
 # include "gmath.h"
-# define WIDTH 1800
-# define HEIGHT 1000
+# define WIDTH 1000
+# define HEIGHT 800
 # define PADDING 30
 
 typedef struct			s_marker
@@ -67,6 +67,8 @@ t_vec4					*projection_vertices(t_vec4 *vertices, size_t v_count,\
 /*
 ** marker
 */
+int						mark_pixel(t_marker *marker, t_coord *coord,\
+	t_polygon_coefficient *co);
 void					parallel_proj_marker(t_marker *marker);
 void					perspective_proj_marker(t_marker *marker);
 
