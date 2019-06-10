@@ -25,6 +25,7 @@ typedef struct			s_marker
 	int					color;
 	void				*p_mlx;
 	void				*p_win;
+	void				*p_img;
 	t_vec4				(*projection)(t_vec4 *vertex);
 	float				(*calculate_z)(int, int, t_polygon_coefficient *);
 	int					(*mark_pixel)(struct s_marker *, t_coord *,\
