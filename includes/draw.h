@@ -6,7 +6,7 @@
 /*   By: jebae <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 15:09:14 by jebae             #+#    #+#             */
-/*   Updated: 2019/05/28 15:09:15 by jebae            ###   ########.fr       */
+/*   Updated: 2019/06/10 15:07:04 by jebae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 # include <mlx.h>
 # include "libft.h"
 # include "gmath.h"
-# define WIDTH 1000
-# define HEIGHT 800
-# define PADDING 30
+# define WIDTH			1000
+# define HEIGHT			800
+# define PADDING		30
+# define MLX_BPP		32
+# define MLX_ENDIAN		0
 
 typedef struct			s_marker
 {
