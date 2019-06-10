@@ -4,7 +4,11 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = srcs/*.c
+SRCS = srcs/line/*.c\
+	srcs/polygon/*.c\
+	srcs/color/*.c\
+	srcs/render/*.c\
+	srcs/utils/*.c\
 
 INCLUDES = -I ./includes\
 	-I ../libft/includes\
@@ -18,6 +22,9 @@ OBJS = plot_line.o\
 	projection_vertices.o\
 	marker.o\
 	z_buffer.o\
+	fractal_palette.o\
+	palette.o\
+	pick_color.o\
 
 LIBS = ../libft/libft.a\
 	   ../gmath/libgmath.a\
