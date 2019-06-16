@@ -47,7 +47,7 @@ typedef struct			s_color
 typedef struct			s_palette
 {
 	size_t				num_ctrl_point;
-	float				*color_ctrl_point;
+	double				*color_ctrl_point;
 	t_color				*color_scheme;
 }						t_palette;
 
@@ -57,7 +57,7 @@ typedef struct			s_marker
 	void				*p_mlx;
 	void				*p_win;
 	void				*p_img;
-	t_palette			palette;
+	t_palette			*palette;
 	t_vec4				(*projection)(t_vec4 *vertex);
 	float				(*calculate_z)(int, int, t_polygon_coefficient *);
 	int					(*mark_pixel)(struct s_marker *, t_coord *,\
@@ -111,8 +111,10 @@ void					init_z_buffer(float *z_buf);
 /*
 ** palette
 */
-int						pick_color(t_palette *palette, float mu);
+int						pick_color(t_palette *palette, double mu);
 void					delete_color_scheme(t_palette *palette);
-t_palette				fractal_palette();
+t_palette				fractal_palette_red();
+t_palette				fractal_palette_green();
+t_palette				fractal_palette_blue();
 
 #endif

@@ -1,9 +1,9 @@
 #include "draw.h"
 
-static int		calc_rgb(t_palette *palette, float mu, size_t i, size_t j)
+static int		calc_rgb(t_palette *palette, double mu, size_t i, size_t j)
 {
 	int			color;
-	float		alpha;
+	double		alpha;
 	t_color		*p1;
 	t_color		*p2;
 
@@ -20,7 +20,7 @@ static int		calc_rgb(t_palette *palette, float mu, size_t i, size_t j)
 	return (color);
 }
 
-int				pick_color(t_palette *palette, float mu)
+int				pick_color(t_palette *palette, double mu)
 {
 	size_t		i;
 
