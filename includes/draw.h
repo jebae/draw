@@ -6,7 +6,7 @@
 /*   By: jebae <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 15:09:14 by jebae             #+#    #+#             */
-/*   Updated: 2019/06/10 16:35:49 by jebae            ###   ########.fr       */
+/*   Updated: 2019/06/17 14:24:30 by jebae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ void					init_z_buffer(float *z_buf);
 */
 int						pick_color(t_palette *palette, double mu);
 void					delete_color_scheme(t_palette *palette);
-t_palette				fractal_palette_red();
-t_palette				fractal_palette_green();
-t_palette				fractal_palette_blue();
+t_palette				fractal_palette_red(void);
+t_palette				fractal_palette_green(void);
+t_palette				fractal_palette_blue(void);
 
 #endif
