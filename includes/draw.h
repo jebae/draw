@@ -6,7 +6,7 @@
 /*   By: jebae <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 15:09:14 by jebae             #+#    #+#             */
-/*   Updated: 2019/06/17 14:24:30 by jebae            ###   ########.fr       */
+/*   Updated: 2019/06/17 15:47:15 by jebae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct			s_marker
 	float				(*calculate_z)(int, int, t_polygon_coefficient *);
 	int					(*mark_pixel)(struct s_marker *, t_coord *,\
 			t_polygon_coefficient *);
-	float				z_buf[HEIGHT][WIDTH];
+	float				*z_buf;
 }						t_marker;
 
 /*
@@ -104,6 +104,7 @@ void					render(t_polygon *polygons, size_t polygon_count,\
 /*
 ** z buffer
 */
+void					new_z_buffer(float **z_buf);
 int						z_buffer_mark_pixel(t_marker *marker, t_coord *origin,\
 	t_polygon_coefficient *co);
 void					init_z_buffer(float *z_buf);

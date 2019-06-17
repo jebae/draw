@@ -6,7 +6,7 @@
 /*   By: jebae <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 15:09:42 by jebae             #+#    #+#             */
-/*   Updated: 2019/05/28 15:09:43 by jebae            ###   ########.fr       */
+/*   Updated: 2019/06/17 15:47:03 by jebae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,17 @@ int			z_buffer_mark_pixel(t_marker *marker, t_coord *origin,\
 			p.y < 0 || p.y > HEIGHT - 1)
 		return (0);
 	z = marker->calculate_z(origin->x, origin->y, co);
-	if (marker->z_buf[p.y][p.x] > z)
+	if (marker->z_buf[p.y * WIDTH + p.x] > z)
 	{
 		mlx_pixel_put(marker->p_mlx, marker->p_win, p.x, p.y, marker->color);
-		marker->z_buf[p.y][p.x] = z;
+		marker->z_buf[p.y * WIDTH + p.x] = z;
 	}
 	return (0);
+}
+
+void		new_z_buffer(float **z_buf)
+{
+	*z_buf = ft_memalloc(sizeof(float) * WIDTH * HEIGHT);
 }
 
 void		init_z_buffer(float *z_buf)
