@@ -6,7 +6,7 @@
 /*   By: jebae <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 15:09:14 by jebae             #+#    #+#             */
-/*   Updated: 2019/06/10 16:35:49 by jebae            ###   ########.fr       */
+/*   Updated: 2019/06/17 15:47:15 by jebae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct			s_marker
 	float				(*calculate_z)(int, int, t_polygon_coefficient *);
 	int					(*mark_pixel)(struct s_marker *, t_coord *,\
 			t_polygon_coefficient *);
-	float				z_buf[HEIGHT][WIDTH];
+	float				*z_buf;
 }						t_marker;
 
 /*
@@ -105,6 +105,7 @@ void					render(t_polygon *polygons, size_t polygon_count,\
 /*
 ** z buffer
 */
+void					new_z_buffer(float **z_buf);
 int						z_buffer_mark_pixel(t_marker *marker, t_coord *origin,\
 	t_polygon_coefficient *co);
 void					init_z_buffer(float *z_buf);
@@ -114,8 +115,8 @@ void					init_z_buffer(float *z_buf);
 */
 int						pick_color(t_palette *palette, double mu);
 void					delete_color_scheme(t_palette *palette);
-t_palette				fractal_palette_red();
-t_palette				fractal_palette_green();
-t_palette				fractal_palette_blue();
+t_palette				fractal_palette_red(void);
+t_palette				fractal_palette_green(void);
+t_palette				fractal_palette_blue(void);
 
 #endif
