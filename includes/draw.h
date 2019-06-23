@@ -12,6 +12,7 @@
 
 #ifndef DRAW_H
 # define DRAW_H
+
 # include <math.h>
 # include <mlx.h>
 # include "libft.h"
