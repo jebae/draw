@@ -15,40 +15,42 @@
 int			z_buffer_mark_pixel(t_marker *marker, t_coord *origin,\
 		t_polygon_coefficient *co)
 {
-	static int		x_to_move = WIDTH / 2;
-	static int		y_to_move = HEIGHT / 2;
-	t_coord			p;
-	float			z;
+	int			x_to_move;
+	int			y_to_move;
+	t_coord		p;
+	float		z;
 
+	x_to_move = marker->width / 2.0f;
+	y_to_move = marker->height / 2.0f;
 	p.x = origin->x + x_to_move;
 	p.y = origin->y + y_to_move;
-	if (p.x < 0 || p.x > WIDTH - 1 ||\
-			p.y < 0 || p.y > HEIGHT - 1)
+	if (p.x < 0 || p.x > marker->width - 1 ||\
+			p.y < 0 || p.y > marker->height - 1)
 		return (0);
 	z = marker->calculate_z(origin->x, origin->y, co);
-	if (marker->z_buf[p.y * WIDTH + p.x] > z)
+	if (marker->z_buf[p.y * (int)(marker->width) + p.x] > z)
 	{
 		mlx_pixel_put(marker->p_mlx, marker->p_win, p.x, p.y, marker->color);
-		marker->z_buf[p.y * WIDTH + p.x] = z;
+		marker->z_buf[p.y * (int)(marker->width) + p.x] = z;
 	}
 	return (0);
 }
 
-void		new_z_buffer(float **z_buf)
+void		new_z_buffer(t_marker *marker)
 {
-	*z_buf = ft_memalloc(sizeof(float) * WIDTH * HEIGHT);
+	marker->z_buf = ft_memalloc(sizeof(float) * marker->width * marker->height);
 }
 
-void		init_z_buffer(float *z_buf)
+void		init_z_buffer(t_marker *marker)
 {
 	size_t		i;
 	size_t		size;
 
-	size = WIDTH * HEIGHT;
+	size = marker->width * marker->height;
 	i = 0;
 	while (i < size)
 	{
-		z_buf[i] = INFINITY;
+		marker->z_buf[i] = INFINITY;
 		i++;
 	}
 }

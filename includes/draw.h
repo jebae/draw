@@ -17,9 +17,6 @@
 # include <mlx.h>
 # include "libft.h"
 # include "gmath.h"
-# define WIDTH			1000
-# define HEIGHT			800
-# define PADDING		30
 # define MLX_BPP		32
 # define MLX_ENDIAN		0
 
@@ -38,12 +35,14 @@ typedef struct			s_edge_list
 	struct s_edge_list	*next;
 }						t_edge_list;
 
+# ifndef RT_H
 typedef struct			s_color
 {
 	unsigned char		r;
 	unsigned char		g;
 	unsigned char		b;
 }						t_color;
+# endif
 
 typedef struct			s_palette
 {
@@ -54,6 +53,8 @@ typedef struct			s_palette
 
 typedef struct			s_marker
 {
+	float				width;
+	float				height;
 	int					color;
 	void				*p_mlx;
 	void				*p_win;
@@ -105,10 +106,10 @@ void					render(t_polygon *polygons, size_t polygon_count,\
 /*
 ** z buffer
 */
-void					new_z_buffer(float **z_buf);
+void					new_z_buffer(t_marker *marker);
 int						z_buffer_mark_pixel(t_marker *marker, t_coord *origin,\
 	t_polygon_coefficient *co);
-void					init_z_buffer(float *z_buf);
+void					init_z_buffer(t_marker *marker);
 
 /*
 ** palette
