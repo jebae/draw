@@ -38,7 +38,7 @@ void			render(t_polygon *polygons, size_t polygon_count,\
 	t_mat4		mat;
 
 	init_z_buffer(marker);
-	mat = camera_mat(cam);
+	mat = world_to_cam_coord_mat(cam);
 	i = 0;
 	while (i < polygon_count)
 		render_polygon(&(polygons[i++]), &mat, marker);
